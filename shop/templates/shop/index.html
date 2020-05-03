@@ -95,6 +95,7 @@ if(localStorage.getItem('cart') ==null)
 }
 else{
     cart=JSON.parse(localStorage.getItem('cart'));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
 }
 
 $('.cart').click(function(){
@@ -107,6 +108,7 @@ $('.cart').click(function(){
     }
     console.log(cart);
     localStorage.setItem('cart',JSON.stringify(cart))
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
 })
 
 {% endblock %}
