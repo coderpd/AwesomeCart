@@ -1,10 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Product
+from math import ceil
 
 
 # Create your views here.
 def index(request):
-	return render(request, 'shop/index.html')
+	products = Product.objects.all()
+	perSlide = 4
+	nSlides = ceil(len(products)/perSlide)
+	params = {'no_of_slides':nSlides, 'per_slide':perSlide, 'range':range(nSlides), 'product': products}
+	return render(request, 'shop/index.html', params)
 
 
 def about(request):
