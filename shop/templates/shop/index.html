@@ -1,48 +1,55 @@
-﻿{% extends 'shop/basic.html' %}
+﻿﻿{% extends 'shop/basic.html' %}
 {% block css %}
-          .col-md-3
-          {
-          display: inline-block;
-          margin-left:-4px;
-          }
-          .carousel-indicators .active {
-          background-color: blue;
-            }
-          .col-md-3 img{
-          width:185px;
-          height:196px;
-          }
-          body .carousel-indicator li{
-          background-color: blue;
-          }
-          body .carousel-indicators{
-          bottom: 0;
-          }
-          body .carousel-control-prev-icon,
-          body .carousel-control-next-icon{
-          background-color: blue;
-          }
-           body .no-padding{
-           padding-left: 0,
-           padding-right: 0;
-           }
+.col-md-3
+{
+    display: inline-block;
+    margin-left:-4px;
+}
+.carousel-indicators .active {
+    background-color: blue;
+}
+.col-md-3 img{
+    width:227px;
+    max-height:242px;
+}
+body .carousel-indicator li{
+    background-color: blue;
+}
+body .carousel-indicators{
+    bottom: 0;
+}
+body .carousel-control-prev-icon,
+body .carousel-control-next-icon{
+    background-color: blue;
+}
+.carousel-control-prev,
+.carousel-control-next{
+    top:auto;
+    bottom:auto;
+}
+body .no-padding{
+    padding-left: 0,
+    padding-right: 0;
+}
 {% endblock %}
 
 {% block body %}
 <div class="container">
-    <h1>Shopping</h1>
-    <div id="demo" class="carousel slide my-3" data-ride="carousel">
+
+    {% for product, range, perSlide, nSlide in allprods %}
+    <!--Slideshow starts here -->
+    <h4>{{product.0.category}}</h4>
+    <div id="demo{{forloop.counter}}" class="carousel slide my-3" data-ride="carousel">
         <ul class="carousel-indicators">
             {% for i in range %}
             {% if i == 0 %}
-            <li data-target="#demo" data-slide-to="{{i}}" class="active"></li>
+            <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}" class="active"></li>
             {% else %}
-            <li data-target="#demo" data-slide-to="{{i}}"></li>
+            <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}"></li>
             {% endif %}
             {% endfor %}
         </ul>
 
-        <!--Slideshow starts here -->
         <div class="container carousel-inner no-padding">
 
             {% for i in product %}
@@ -68,11 +75,14 @@
     </div>
 
     <!-- left and right controls for the slide -->
-    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
         <span class="carousel-control-prev-icon"></span>
     </a>
-    <a class="carousel-control-next" href="#demo" data-slide="next">
+    <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
         <span class="carousel-control-next-icon"></span>
     </a>
+
+    {% endfor %}
+
 </div>
  {% endblock %}

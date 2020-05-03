@@ -6,10 +6,14 @@ from math import ceil
 
 # Create your views here.
 def index(request):
-	products = Product.objects.all()
 	perSlide = 4
-	nSlides = ceil(len(products)/perSlide)
-	params = {'no_of_slides':nSlides, 'per_slide':perSlide, 'range':range(nSlides), 'product': products}
+	cats = {item['category'] for item in Product.objects.values('category')}
+	allprods = []
+	for cat in cats:
+		prod = Product.objects.filter(category=cat)
+		nSlides = ceil(len(prod) / perSlide)
+		allprods.append([prod, range(nSlides), perSlide, nSlides])
+	params = {'allprods':allprods}
 	return render(request, 'shop/index.html', params)
 
 
