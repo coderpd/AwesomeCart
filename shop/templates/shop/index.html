@@ -66,8 +66,9 @@ body .no-padding{
                             <img src='/media/{{i.image}}' class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title">{{i.product_name}}</h5>
-                                <p class="card-text">{{i.description}}</p>
-                                <button href="#" id="{{i.id}}" class="btn btn-primary cart">Add to Cart</button>
+                                <p class="card-text">{{i.description|slice:"0:100"}}...</p>
+                                <button id="pr{{i.id}}" class="btn btn-primary cart">Add to Cart</button>
+                                <a href="/shop/products/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary">Quick View</button></a>
                             </div>
                         </div>
                     </div>
@@ -89,28 +90,3 @@ body .no-padding{
 </div>
  {% endblock %}
 
-{%block js %}
-if(localStorage.getItem('cart') ==null)
-{
-    var cart = {};
-}
-else{
-    cart=JSON.parse(localStorage.getItem('cart'));
-    document.getElementById('cart').innerHTML = Object.keys(cart).length;
-}
-
-$('.cart').click(function(){
-    var idstr = this.id.toString();
-    if (cart[idstr] !=undefined){
-        cart[idstr] = cart[idstr]+1;
-    }
-    else{
-    cart[idstr]=1;
-    }
-    console.log(cart);
-    localStorage.setItem('cart',JSON.stringify(cart))
-    document.getElementById('cart').innerHTML = Object.keys(cart).length;
-})
-$('#popcart').popover();
-document.getElementById("popcart").setAttribute('data-content', '<h5>Cart for your items in shopping cart</h5>');
-{% endblock %}

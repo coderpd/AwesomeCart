@@ -13,7 +13,7 @@ def index(request):
 		prod = Product.objects.filter(category=cat)
 		nSlides = ceil(len(prod) / perSlide)
 		allprods.append([prod, range(nSlides), perSlide, nSlides])
-	params = {'allprods':allprods}
+	params = {'allprods': allprods}
 	return render(request, 'shop/index.html', params)
 
 
@@ -33,8 +33,10 @@ def search(request):
 	return render(request, 'shop/search.html')
 
 
-def prodView(request):
-	return render(request, 'shop/prodview.html')
+def prodView(request, id):
+	# Fetch the product using the id
+	params = {'Product': Product.objects.filter(id=id)[0]}
+	return render(request, 'shop/prodview.html', params)
 
 
 def checkout(request):
