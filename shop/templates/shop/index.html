@@ -90,7 +90,6 @@ body .no-padding{
  {% endblock %}
 
 {%block js %}
-console.log('working');
 if(localStorage.getItem('cart') ==null)
 {
     var cart = {};
@@ -112,5 +111,6 @@ $('.cart').click(function(){
     localStorage.setItem('cart',JSON.stringify(cart))
     document.getElementById('cart').innerHTML = Object.keys(cart).length;
 })
-
+$('#popcart').popover();
+document.getElementById("popcart").setAttribute('data-content', '<h5>Cart for your items in shopping cart</h5>');
 {% endblock %}
